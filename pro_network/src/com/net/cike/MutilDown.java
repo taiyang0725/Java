@@ -8,12 +8,14 @@ import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URL;
 import java.net.URLConnection;
-
+/**
+ * 多线程下载
+ * */
 public class MutilDown {
 	
 	private void down() {
 		
-		final int DOWN_THREAD_NUM=4;
+		final int DOWN_THREAD_NUM=5;
 		final String OUT_FILE_NAME="down.jpg";
 		
 		InputStream [] isArr=new InputStream[DOWN_THREAD_NUM];

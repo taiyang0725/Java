@@ -42,7 +42,7 @@ public class DownThread extends Thread{
 			long contentLen=end-start;
 			
 			//定义最多需要读取几次就可以完成本线程的下载
-			long times=contentLen/BUFF_LEN+4;
+			long times=contentLen/BUFF_LEN;
 			
 			//实际读取的字节数
 			int hasRead=0;

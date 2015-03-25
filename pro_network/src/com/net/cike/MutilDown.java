@@ -20,10 +20,12 @@ public class MutilDown {
 		
 		InputStream [] isArr=new InputStream[DOWN_THREAD_NUM];
 		RandomAccessFile[] outArr=new RandomAccessFile[DOWN_THREAD_NUM];
-
+		String ad="http://t2.baidu.com/it/u=2851256648,3405387401&fm=20";
+		String ad1="http://images.china-pub.com/"
+					+ "ebook35001-40000/35850/shupi.jpg";
+		
 		try {
-			URL url=new URL("http://images.china-pub.com/"
-					+ "ebook35001-40000/35850/shupi.jpg");
+			URL url=new URL(ad);
 			
 			//对此URL对象打开第一个输入流
 			isArr[0]=url.openStream();
@@ -38,9 +40,10 @@ public class MutilDown {
 			}
 			//每条线程应该下载的字节数
 			long numPerTh=fileLen/DOWN_THREAD_NUM;
+			System.out.println(numPerTh+"numPerTh");
 			//整个资源整除后剩下的余数
 			long left=fileLen%DOWN_THREAD_NUM;
-			
+			System.out.println(left+"***********");
 			for (int i = 0; i < DOWN_THREAD_NUM; i++) {
 				//为每个线程打开一个输入流，一个RandomAccessFile对象
 				//让每个线程分别负责下载资源的不同部分
@@ -52,8 +55,9 @@ public class MutilDown {
 				//分别启动多个线程来下载网络资源
 				if(i==DOWN_THREAD_NUM-1){
 					//最后一个线程下载指定numPerTh+left个字节
-					new DownThread(i+numPerTh,(i+1)*numPerTh+left,
+					new DownThread(i*numPerTh,(i+1)*numPerTh+left,
 							isArr[i], outArr[i]).start();
+					
 				}else{
 					//每个线程负责下载numPerTh的字节
 					new DownThread(i*numPerTh,(i+1)*numPerTh,
